@@ -21,7 +21,7 @@ public class Horse extends Racer implements ILandRacer {
 
 	public Horse(String name, double maxSpeed, double acceleration, utilities.EnumContainer.Color color) {
 		super(name, maxSpeed, acceleration, color);
-		this.breed = Breed.THOROUGHBRED;
+		this.setBreed(Breed.THOROUGHBRED);
 	}
 
 	@Override
@@ -34,6 +34,14 @@ public class Horse extends Racer implements ILandRacer {
 		String s = "";
 		s += ", Breed: " + this.breed;
 		return s;
+	}
+
+	public EnumContainer.Breed getBreed() {
+		return breed;
+	}
+
+	public void setBreed(EnumContainer.Breed breed) {
+		this.breed = breed;
 	}
 
 }

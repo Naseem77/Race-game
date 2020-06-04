@@ -15,12 +15,6 @@ public class Helicopter extends Racer implements IAerialRacer {
 		this(CLASS_NAME + " #" + lastSerialNumber, DEFAULT_MAX_SPEED, DEFAULT_ACCELERATION, DEFAULT_color);
 	}
 
-	/**
-	 * @param name
-	 * @param maxSpeed
-	 * @param acceleration
-	 * @param color
-	 */
 	public Helicopter(String name, double maxSpeed, double acceleration, utilities.EnumContainer.Color color) {
 		super(name, maxSpeed, acceleration, color);
 	}

@@ -22,8 +22,24 @@ public class SpeedBoat extends Racer implements INavalRacer {
 
 	public SpeedBoat(String name, double maxSpeed, double acceleration, utilities.EnumContainer.Color color) {
 		super(name, maxSpeed, acceleration, color);
-		this.type = BoatType.SKULLING;
-		this.team = Team.DOUBLE;
+		this.setType(BoatType.SKULLING);
+		this.setTeam(Team.SINGLE);
+	}
+
+	public EnumContainer.BoatType getType() {
+		return type;
+	}
+
+	public void setType(EnumContainer.BoatType type) {
+		this.type = type;
+	}
+
+	public EnumContainer.Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(EnumContainer.Team team) {
+		this.team = team;
 	}
 
 	@Override
@@ -36,7 +52,6 @@ public class SpeedBoat extends Racer implements INavalRacer {
 		String s = "";
 		s += ", Type: " + this.type;
 		s += ", Team: " + this.team;
-
 		return s;
 	}
 

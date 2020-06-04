@@ -22,8 +22,8 @@ public class LandArena extends Arena {
 
 	public LandArena(double length, int maxRacers) {
 		super(length, maxRacers, DEFAULT_FRICTION);
-		this.coverage = EnumContainer.Coverage.GRASS;
-		this.surface = EnumContainer.LandSurface.FLAT;
+		this.setCoverage ( EnumContainer.Coverage.GRASS);
+		this.setSurface(EnumContainer.LandSurface.FLAT);
 	}
 
 	@Override
@@ -33,5 +33,21 @@ public class LandArena extends Arena {
 		} else {
 			throw new RacerTypeException(newRacer.className(), "Land");
 		}
+	}
+
+	public EnumContainer.Coverage getCoverage() {
+		return coverage;
+	}
+
+	public EnumContainer.LandSurface getSurface() {
+		return surface;
+	}
+
+	public void setCoverage(EnumContainer.Coverage coverage) {
+		this.coverage = coverage;
+	}
+
+	public void setSurface(EnumContainer.LandSurface surface) {
+		this.surface = surface;
 	}
 }

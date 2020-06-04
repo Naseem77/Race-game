@@ -7,6 +7,7 @@ import game.racers.Racer;
 import game.racers.naval.INavalRacer;
 import utilities.EnumContainer;
 
+@SuppressWarnings("unused")
 public class NavalArena extends Arena {
 	private final static double DEFAULT_FRICTION = 0.7;
 	private final static int DEFAULT_MAX_RACERS = 5;
@@ -22,9 +23,9 @@ public class NavalArena extends Arena {
 
 	public NavalArena(double length, int maxRacers) {
 		super(length, maxRacers, DEFAULT_FRICTION);
-		this.water = EnumContainer.Water.SWEET;
-		this.surface = EnumContainer.WaterSurface.FLAT;
-		this.body = EnumContainer.Body.LAKE;
+		this.setWater(EnumContainer.Water.SWEET);
+		this.setSurface(EnumContainer.WaterSurface.FLAT);
+		this.setBody(EnumContainer.Body.LAKE);
 	}
 
 	@Override
@@ -34,6 +35,30 @@ public class NavalArena extends Arena {
 		} else {
 			throw new RacerTypeException(newRacer.className(), "Naval");
 		}
+	}
+
+	public EnumContainer.Body getBody() {
+		return body;
+	}
+
+	public EnumContainer.WaterSurface getSurface() {
+		return surface;
+	}
+
+	public EnumContainer.Water getWater() {
+		return water;
+	}
+
+	public void setBody(EnumContainer.Body body) {
+		this.body = body;
+	}
+
+	public void setSurface(EnumContainer.WaterSurface surface) {
+		this.surface = surface;
+	}
+
+	public void setWater(EnumContainer.Water water) {
+		this.water = water;
 	}
 
 }

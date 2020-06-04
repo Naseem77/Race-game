@@ -25,8 +25,8 @@ public class Car extends Racer implements ILandRacer {
 	public Car(String name, double maxSpeed, double acceleration, utilities.EnumContainer.Color color,
 			int numOfWheels) {
 		super(name, maxSpeed, acceleration, color);
-		this.wheeled = new Wheeled(numOfWheels);
-		this.engine = Engine.FOURSTROKE;
+		this.setWheeled(new Wheeled(numOfWheels));
+		this.setEngine(Engine.MOUNTAIN);
 	}
 
 	@Override
@@ -41,5 +41,21 @@ public class Car extends Racer implements ILandRacer {
 		s += ", Engine Type: " + this.engine;
 
 		return s;
+	}
+
+	public Engine getEngine() {
+		return engine;
+	}
+
+	public Wheeled getWheeled() {
+		return wheeled;
+	}
+
+	public void setEngine(Engine engine) {
+		this.engine = engine;
+	}
+
+	public void setWheeled(Wheeled wheeled) {
+		this.wheeled = wheeled;
 	}
 }

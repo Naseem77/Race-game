@@ -7,6 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import factory.RaceBuilder;
+import factory.RacingClassesFinder;
 import game.arenas.Arena;
 import game.arenas.air.AerialArena;
 import game.arenas.exceptions.RacerLimitException;
@@ -47,7 +48,7 @@ public class Program {
 
 	private static void initAirRace() {
 		try {
-			arena = builder.buildArena("game.arenas.air.AerialArena", 1450, 4);
+			arena = builder.buildArena("game.arenas.air.AerialArena", 1000, 4);
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
 				| IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {
 			System.out.println("Unable to build arena!");
@@ -107,7 +108,8 @@ public class Program {
 			racers.add(builder.buildRacer("game.racers.naval.SpeedBoat", "John", 175, 20, Color.BLUE));
 			racers.add(builder.buildRacer("game.racers.naval.RowBoat", "Matt", 230, 8, Color.RED));
 			racers.add(builder.buildWheeledRacer("game.racers.land.Car", "car", 15, 1, Color.GREEN, 3));
-			racers.add(builder.buildRacer("game.racers.land.Car", "car", 15, 1, Color.GREEN)); // intentional exception!
+			// racers.add(builder.buildRacer("game.racers.land.Car", "car", 15, 1,
+			// Color.GREEN)); // intentional exception!
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
 				| IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {
 			e1.printStackTrace();
@@ -119,7 +121,20 @@ public class Program {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Fate.setSeed(477734503); // to get same "random" results every run;
+		System.out.println("Arenas:");
+		for (Class<?> cls : RacingClassesFinder.getInstance().getArenasList()) {
+			System.out.println(cls.getName());
+		}
+		System.out.println("Racers:");
+		for (Class<?> cls : RacingClassesFinder.getInstance().getRacersList()) {
+			System.out.println(cls.getName());
+		}
+		System.out.println("----------");
+		System.out.println("----------");
+		System.out.println("----------");
+		System.out.println("----------");
+
+		// Fate.setSeed(477734503); // to get same "random" results every run;
 		////////////////////////////////////////////
 		testDefaults();
 		System.out.println("----------");
@@ -152,7 +167,12 @@ public class Program {
 			racer.introduce();
 		System.out.println("Strat Race!");
 		while (arena.hasActiveRacers()) {
-			arena.playTurn();
+			// arena.playTurn();
+			try {
+				arena.startRace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		System.out.println("Race Compleated!");
 	}
@@ -170,78 +190,3 @@ public class Program {
 	}
 
 }
-
-// output
-/*
-Testing default valus and introduction.
-[Car] name: Car #1, SerialNumber: 1, maxSpeed: 400.0, acceleration: 20.0, color: RED, Number of Wheels: 4, Engine Type: MOUNTAIN
-[Horse] name: Horse #2, SerialNumber: 2, maxSpeed: 50.0, acceleration: 3.0, color: BLACK, Breed: THOROUGHBRED
-[Bicycle] name: Bicycle #3, SerialNumber: 3, maxSpeed: 270.0, acceleration: 10.0, color: GREEN, Number of Wheels: 2, Bicycle Type: MOUNTAIN
-[Helicopter] name: Helicopter #4, SerialNumber: 4, maxSpeed: 400.0, acceleration: 50.0, color: BLUE
-[Airplane] name: Airplane #5, SerialNumber: 5, maxSpeed: 885.0, acceleration: 100.0, color: BLACK, Number of Wheels: 3
-[SpeedBoat] name: SpeedBoat #6, SerialNumber: 6, maxSpeed: 170.0, acceleration: 5.0, color: RED, Type: SKULLING, Team: SINGLE
-[RowBoat] name: RowBoat #7, SerialNumber: 7, maxSpeed: 75.0, acceleration: 10.0, color: RED, Type: SKULLING, Team: SINGLE
-End of test.
-----------
-New Air Race
-[Error] Invalid Racer of type "Car" for Aerial arena.
-[Error] Arena is full! (4 active racers exist). racer #13 was not added
-Introduction: 
-[Airplane] name: Bob, SerialNumber: 8, maxSpeed: 220.0, acceleration: 10.0, color: BLUE, Number of Wheels: 3
-[Airplane] name: John, SerialNumber: 9, maxSpeed: 175.0, acceleration: 20.0, color: BLUE, Number of Wheels: 3
-[Airplane] name: Frank, SerialNumber: 10, maxSpeed: 180.0, acceleration: 15.0, color: BLUE, Number of Wheels: 3
-[Helicopter] name: Matt, SerialNumber: 11, maxSpeed: 230.0, acceleration: 8.0, color: RED
-Strat Race!
-Frank Has a new mishap! (false, 4, 0.90)
-Matt Has a new mishap! (true, 4, 0.62)
-John Has a new mishap! (false, 5, 0.38)
-Bob Has a new mishap! (false, 3, 1.00)
-Matt Has a new mishap! (false, 3, 0.62)
-Race Compleated!
-#0 -> name: Frank, SerialNumber: 10, maxSpeed: 180.0, acceleration: 15.0, color: BLUE, Number of Wheels: 3
-#1 -> name: Bob, SerialNumber: 8, maxSpeed: 220.0, acceleration: 10.0, color: BLUE, Number of Wheels: 3
-#2 -> name: John, SerialNumber: 9, maxSpeed: 175.0, acceleration: 20.0, color: BLUE, Number of Wheels: 3
-#3 -> name: Matt, SerialNumber: 11, maxSpeed: 230.0, acceleration: 8.0, color: RED
-----------
-New Land Race
-[Error] Invalid Racer of type "Helicopter" for Land arena.
-Introduction: 
-[Car] name: Bob, SerialNumber: 14, maxSpeed: 220.0, acceleration: 10.0, color: BLUE, Number of Wheels: 4, Engine Type: MOUNTAIN
-[Car] name: John, SerialNumber: 15, maxSpeed: 175.0, acceleration: 20.0, color: BLUE, Number of Wheels: 4, Engine Type: MOUNTAIN
-[Horse] name: Frank, SerialNumber: 16, maxSpeed: 180.0, acceleration: 15.0, color: BLUE, Breed: THOROUGHBRED
-[Horse] name: Matt, SerialNumber: 17, maxSpeed: 230.0, acceleration: 8.0, color: RED, Breed: THOROUGHBRED
-[Bicycle] name: Timmy, SerialNumber: 18, maxSpeed: 15.0, acceleration: 1.0, color: GREEN, Number of Wheels: 3, Bicycle Type: MOUNTAIN
-Strat Race!
-Bob Has a new mishap! (false, 4, 0.81)
-John Has a new mishap! (false, 2, 0.16)
-Matt Has a new mishap! (false, 2, 0.31)
-Timmy Has a new mishap! (false, 1, 0.94)
-Frank Has a new mishap! (true, 1, 0.64)
-Frank Has a new mishap! (true, 5, 0.90)
-Frank Has a new mishap! (false, 3, 0.47)
-Race Compleated!
-#0 -> name: Frank, SerialNumber: 16, maxSpeed: 180.0, acceleration: 15.0, color: BLUE, Breed: THOROUGHBRED
-#1 -> name: Bob, SerialNumber: 14, maxSpeed: 220.0, acceleration: 10.0, color: BLUE, Number of Wheels: 4, Engine Type: MOUNTAIN
-#2 -> name: John, SerialNumber: 15, maxSpeed: 175.0, acceleration: 20.0, color: BLUE, Number of Wheels: 4, Engine Type: MOUNTAIN
-#3 -> name: Matt, SerialNumber: 17, maxSpeed: 230.0, acceleration: 8.0, color: RED, Breed: THOROUGHBRED
-#4 -> name: Timmy, SerialNumber: 18, maxSpeed: 15.0, acceleration: 1.0, color: GREEN, Number of Wheels: 3, Bicycle Type: MOUNTAIN
-----------
-New Naval Race
-[Error] Arena is full! (2 active racers exist). racer #22 was not added
-[Error] Invalid Racer of type "Car" for Naval arena.
-Introduction: 
-java.lang.NoSuchMethodException: game.racers.land.Car.<init>(java.lang.String, double, double, utilities.EnumContainer$Color)
-	at java.lang.Class.getConstructor0(Unknown Source)
-	at java.lang.Class.getConstructor(Unknown Source)
-	at factory.RaceBuilder.buildRacer(RaceBuilder.java:43)
-	at utilities.Program.initNavalRace(Program.java:110)
-	at utilities.Program.main(Program.java:142)
-[RowBoat] name: Bob, SerialNumber: 20, maxSpeed: 220.0, acceleration: 10.0, color: BLUE, Type: SKULLING, Team: SINGLE
-[SpeedBoat] name: John, SerialNumber: 21, maxSpeed: 175.0, acceleration: 20.0, color: BLUE, Type: SKULLING, Team: SINGLE
-Strat Race!
-Bob Has a new mishap! (false, 3, 0.44)
-John Has a new mishap! (false, 2, 0.04)
-Race Compleated!
-#0 -> name: Bob, SerialNumber: 20, maxSpeed: 220.0, acceleration: 10.0, color: BLUE, Type: SKULLING, Team: SINGLE
-#1 -> name: John, SerialNumber: 21, maxSpeed: 175.0, acceleration: 20.0, color: BLUE, Type: SKULLING, Team: SINGLE
-*/

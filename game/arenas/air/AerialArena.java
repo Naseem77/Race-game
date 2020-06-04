@@ -30,10 +30,10 @@ public class AerialArena extends Arena {
 	 */
 	public AerialArena(double length, int maxRacers) {
 		super(length, maxRacers, DEFAULT_FRICTION);
-		this.vision = EnumContainer.Vision.SUNNY;
-		this.wather = EnumContainer.Weather.DRY;
-		this.height = EnumContainer.Height.HIGH;
-		this.wind = EnumContainer.Wind.HIGH;
+		this.setVision(EnumContainer.Vision.SUNNY);
+		this.setWather(EnumContainer.Weather.DRY);
+		this.setHeight(EnumContainer.Height.HIGH);
+		this.setWind(EnumContainer.Wind.HIGH);
 	}
 
 	@Override

@@ -26,8 +26,8 @@ public class Bicycle extends Racer implements ILandRacer {
 	public Bicycle(String name, double maxSpeed, double acceleration, utilities.EnumContainer.Color color,
 			int numOfWheels) {
 		super(name, maxSpeed, acceleration, color);
-		this.wheeled = new Wheeled(numOfWheels);
-		this.type = BicycleType.MOUNTAIN;
+		this.setWheeled(new Wheeled(numOfWheels));
+		this.setType(BicycleType.MOUNTAIN);
 	}
 
 	@Override
@@ -41,5 +41,21 @@ public class Bicycle extends Racer implements ILandRacer {
 		s += this.wheeled.describeSpecific();
 		s += ", Bicycle Type: " + this.type;
 		return s;
+	}
+
+	public EnumContainer.BicycleType getType() {
+		return type;
+	}
+
+	public Wheeled getWheeled() {
+		return wheeled;
+	}
+
+	public void setType(EnumContainer.BicycleType type) {
+		this.type = type;
+	}
+
+	public void setWheeled(Wheeled wheeled) {
+		this.wheeled = wheeled;
 	}
 }

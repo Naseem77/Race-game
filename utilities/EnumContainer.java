@@ -36,7 +36,7 @@ public class EnumContainer {
 	}
 
 	public static enum Engine {
-		FOURSTROKE, VTYPE, STRAIGHT, BOXER, ROTARY
+		MOUNTAIN, HYBRID, CRUISER, ROAD
 	}
 
 	public static enum Height {
@@ -45,6 +45,10 @@ public class EnumContainer {
 
 	public static enum LandSurface {
 		FLAT, MOUNTAIN
+	}
+
+	public static enum RacerEvent {
+		FINISHED, BROKENDOWN, REPAIRED, DISABLED
 	}
 
 	public static enum Team {

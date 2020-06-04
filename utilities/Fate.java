@@ -3,15 +3,25 @@ package utilities;
 import java.util.Random;
 
 public class Fate {
+	
+	// DEV change Fixable prob
+	private final static double FIXABLE = 0.95;
 
 	private static Random rand = new Random();
 
+	
+	@Deprecated
 	public static boolean breakDown() {
 		return rand.nextBoolean();
 	}
 
+	public static boolean breakDown(double failureProbability) {
+		return rand.nextFloat() <= failureProbability;
+	}
+
 	public static boolean generateFixable() {
-		return rand.nextInt(10) > 7;
+		// DEV changable prob
+		return rand.nextFloat() < FIXABLE;
 	}
 
 	public static Mishap generateMishap() {
@@ -29,5 +39,4 @@ public class Fate {
 	public static void setSeed(int seed) {
 		rand.setSeed(seed);
 	}
-
 }

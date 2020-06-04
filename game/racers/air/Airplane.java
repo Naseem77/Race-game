@@ -18,16 +18,10 @@ public class Airplane extends Racer implements IAerialRacer {
 				DEFAULT_WHEELS);
 	}
 
-	/**
-	 * @param name
-	 * @param maxSpeed
-	 * @param acceleration
-	 * @param color
-	 */
 	public Airplane(String name, double maxSpeed, double acceleration, utilities.EnumContainer.Color color,
 			int numOfWheels) {
 		super(name, maxSpeed, acceleration, color);
-		this.wheeled = new Wheeled(numOfWheels);
+		this.setWheeled(new Wheeled(numOfWheels));
 	}
 
 	@Override
@@ -38,5 +32,13 @@ public class Airplane extends Racer implements IAerialRacer {
 	@Override
 	public String describeSpecific() {
 		return this.wheeled.describeSpecific();
+	}
+
+	public Wheeled getWheeled() {
+		return wheeled;
+	}
+
+	public void setWheeled(Wheeled wheeled) {
+		this.wheeled = wheeled;
 	}
 }
